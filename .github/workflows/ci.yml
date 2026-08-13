@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile
+        run: python -m compileall -q src tests evals examples
+      - name: Unit and HTTP integration tests
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - name: Policy regression suite
+        run: PYTHONPATH=src python evals/run_policy_eval.py --config router.example.json
+

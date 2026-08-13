@@ -1,0 +1,47 @@
+services:
+  router:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      ROOOMTECH_RECEIPT_SECRET: "replace-this-development-secret"
+    volumes:
+      - router_data:/app/data
+    depends_on:
+      mock-local:
+        condition: service_healthy
+      mock-code:
+        condition: service_healthy
+      mock-research:
+        condition: service_healthy
+
+  mock-local:
+    build: .
+    command: ["python", "/app/examples/mock_provider.py", "--port", "9101", "--name", "local-reasoner"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9101/healthz')"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  mock-code:
+    build: .
+    command: ["python", "/app/examples/mock_provider.py", "--port", "9102", "--name", "cloud-coder"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9102/healthz')"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  mock-research:
+    build: .
+    command: ["python", "/app/examples/mock_provider.py", "--port", "9103", "--name", "cloud-scientist"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9103/healthz')"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+volumes:
+  router_data:
+

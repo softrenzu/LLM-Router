@@ -1,0 +1,6 @@
+{"id":"simple_chat","prompt":"Say hello in one sentence.","expected_topology":"direct"}
+{"id":"restricted_secret","prompt":"Use this api_key = sk-abcdefghijklmnopqrstuvwxyz1234 to explain the configuration.","allowed_models":["local-reasoner"],"expected_data_class":"restricted"}
+{"id":"high_stakes_research","prompt":"Research and compare all available evidence in multiple steps. Verify every claim and analyze the architecture.","routing":{"high_stakes":true},"expected_topology":"parallel_consensus","min_provider_diversity":2}
+{"id":"tool_loop","prompt":"Call the lookup tool and use its result.","tools":[{"type":"function","function":{"name":"lookup","parameters":{"type":"object","properties":{}}}}],"expected_topology":"cascade"}
+{"id":"airgap","prompt":"Analyze this internal code architecture in detail.","routing":{"tenant_id":"airgap","region":"JP"},"allowed_models":["local-reasoner"]}
+

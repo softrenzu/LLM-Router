@@ -1,0 +1,123 @@
+{
+  "router": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "database_path": "data/router.db",
+    "max_parallel": 3,
+    "request_timeout_seconds": 60,
+    "cache_ttl_seconds": 0,
+    "circuit_breaker_failures": 3,
+    "circuit_breaker_recovery_seconds": 30,
+    "receipt_secret_env": "ROOOMTECH_RECEIPT_SECRET",
+    "api_keys_env": "ROOOMTECH_ROUTER_API_KEYS",
+    "require_auth": false,
+    "auto_classify_sensitive_data": true,
+    "expose_route_in_response": true
+  },
+  "tenants": {
+    "default": {
+      "allowed_providers": ["*"],
+      "allowed_deployments": ["local", "cloud"],
+      "allowed_regions": ["JP", "global"],
+      "max_data_class": "restricted",
+      "default_max_cost_usd": 0.25,
+      "default_max_latency_ms": 60000,
+      "min_quality": 0.0,
+      "weights": {
+        "quality": 0.55,
+        "reliability": 0.15,
+        "cost": 0.10,
+        "latency": 0.10,
+        "privacy": 0.10
+      }
+    },
+    "airgap": {
+      "allowed_providers": ["local-vllm"],
+      "allowed_deployments": ["local"],
+      "allowed_regions": ["JP"],
+      "max_data_class": "restricted",
+      "default_max_cost_usd": 0.0,
+      "default_max_latency_ms": 120000,
+      "weights": {
+        "quality": 0.70,
+        "reliability": 0.15,
+        "cost": 0.0,
+        "latency": 0.05,
+        "privacy": 0.10
+      }
+    }
+  },
+  "models": [
+    {
+      "id": "local-reasoner",
+      "provider": "local-vllm",
+      "base_url": "http://127.0.0.1:9101/v1",
+      "model": "local-reasoner",
+      "deployment": "local",
+      "regions": ["JP"],
+      "capabilities": ["chat", "tools", "json", "reasoning", "code"],
+      "context_window": 131072,
+      "max_output_tokens": 32768,
+      "max_data_class": "restricted",
+      "input_cost_per_million": 0,
+      "output_cost_per_million": 0,
+      "latency_ms": 1800,
+      "quality": {
+        "general": 0.72,
+        "code": 0.76,
+        "math": 0.79,
+        "legal": 0.68,
+        "medical": 0.67,
+        "finance": 0.69,
+        "research": 0.70
+      }
+    },
+    {
+      "id": "cloud-coder",
+      "provider": "cloud-a",
+      "base_url": "http://127.0.0.1:9102/v1",
+      "model": "cloud-coder",
+      "api_key_env": "CLOUD_A_API_KEY",
+      "deployment": "cloud",
+      "regions": ["JP", "global"],
+      "capabilities": ["chat", "tools", "json", "reasoning", "code"],
+      "context_window": 200000,
+      "max_output_tokens": 32768,
+      "max_data_class": "internal",
+      "input_cost_per_million": 2.0,
+      "output_cost_per_million": 12.0,
+      "latency_ms": 2200,
+      "quality": {
+        "general": 0.82,
+        "code": 0.93,
+        "math": 0.84,
+        "research": 0.80
+      }
+    },
+    {
+      "id": "cloud-scientist",
+      "provider": "cloud-b",
+      "base_url": "http://127.0.0.1:9103/v1",
+      "model": "cloud-scientist",
+      "api_key_env": "CLOUD_B_API_KEY",
+      "deployment": "cloud",
+      "regions": ["JP", "global"],
+      "capabilities": ["chat", "json", "reasoning", "vision"],
+      "context_window": 1000000,
+      "max_output_tokens": 65536,
+      "max_data_class": "internal",
+      "input_cost_per_million": 3.0,
+      "output_cost_per_million": 15.0,
+      "latency_ms": 3000,
+      "quality": {
+        "general": 0.86,
+        "math": 0.94,
+        "research": 0.95,
+        "medical": 0.88,
+        "finance": 0.86,
+        "legal": 0.84
+      }
+    }
+  ]
+}
+
