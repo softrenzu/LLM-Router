@@ -2,7 +2,7 @@
 
 品質だけでなく、費用、遅延、障害、機密区分、リージョン、プロバイダー相関まで同時に判断する、説明可能なマルチLLMルーターです。OpenAI互換の Chat Completions API と Responses API を提供し、vLLM、NVIDIA NIM、TGI、Ollama、クラウドLLMを同じモデルプールとして扱えます。
 
-> 開発状況: `v0.1.0-alpha`。公開仕様上の機能範囲では Sakana Fugu の制約を超える設計ですが、SWE-Bench Pro等における総合性能の優位性はまだ実測していません。比較可能な評価ハーネスを同梱し、結果が出る前に性能を誇張しない方針です。
+> 開発状況: `v0.2.0-alpha`。公開仕様上の機能範囲では Sakana Fugu の制約を超える設計ですが、SWE-Bench Pro等における総合性能の優位性はまだ実測していません。比較可能な評価ハーネスを同梱し、結果が出る前に性能を誇張しない方針です。
 
 ## 何が新しいか
 
@@ -189,7 +189,7 @@ PYTHONPATH=src python evals/run_live_benchmark.py \
 
 ## 現在の制約
 
-- SSEは互換形式ですが、v0.1では複数モデルの処理完了後に分割送信するバッファ型です。
+- SSEは互換形式ですが、v0.2では複数モデルの処理完了後に分割送信するバッファ型です。
 - Responses APIは基本的なテキスト、画像入力の転送、ツール定義を扱いますが、全イベント型を網羅していません。
 - プロセス内Circuit Breakerの状態は複数レプリカ間で共有されません。大規模運用ではRedis等の共有状態へ差し替える余地があります。
 - 品質事前値は設定値です。本番データで校正してから意思決定に利用してください。
@@ -200,6 +200,12 @@ PYTHONPATH=src python evals/run_live_benchmark.py \
 - [Sakana Fuguとの根拠付き比較](docs/FUGU_COMPARISON.md)
 - [プロバイダー設定](docs/PROVIDERS.md)
 - [コントリビューション](CONTRIBUTING.md)
+
+## Enterprise support
+
+ROOOMTECHでは、法人・本番利用向けに有償の商用契約、保守、技術サポート、導入・連携支援、バージョンアップ、セキュリティ対応、SLA、個別開発を提供します。商用ソフトウェアライセンス契約書を用意しています。
+
+Contact: `tasuku.yoshioka@rooomtech.com`
 
 ## License
 
