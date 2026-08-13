@@ -87,7 +87,6 @@ python examples/mock_provider.py --port 9102 --name cloud-coder
 python examples/mock_provider.py --port 9103 --name cloud-scientist
 PYTHONPATH=src python -m rooomtech_router --config router.json
 ```
-
 最初の3コマンドは別ターミナルで起動してください。実際のLLMへ接続する場合はモックを起動せず、`base_url` と `model` を対象のOpenAI互換エンドポイントへ変更します。
 
 ## OpenAIクライアントから使う
@@ -178,7 +177,6 @@ PYTHONPATH=src python evals/run_policy_eval.py --config router.example.json
 ```
 
 任意のOpenAI互換APIに対する同一条件評価も実行できます。
-
 ```bash
 PYTHONPATH=src python evals/run_live_benchmark.py \
   --endpoint http://localhost:8080 \
@@ -205,9 +203,8 @@ PYTHONPATH=src python evals/run_live_benchmark.py \
 
 ROOOMTECHでは、法人・本番利用向けに有償の商用契約、保守、技術サポート、導入・連携支援、バージョンアップ、セキュリティ対応、SLA、個別開発を提供します。商用ソフトウェアライセンス契約書を用意しています。
 
-Contact: `tasuku.yoshioka@rooomtech.com`
+Contact: `support@rooomtech.com`
 
 ## License
 
 Apache License 2.0
-
