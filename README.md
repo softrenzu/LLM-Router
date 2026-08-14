@@ -1,6 +1,8 @@
 # RooomRoute — Explainable Multi-LLM Router
 
-Version: `0.3.0-alpha`
+Version: `0.3.0`
+
+> Status: alpha.
 
 RooomRoute is a source-available multi-LLM router that makes routing decisions using quality, cost, latency, failure state, data classification, region, capabilities, and provider correlation. It exposes OpenAI-compatible Chat Completions and Responses APIs and can route across vLLM, NVIDIA NIM, TGI, Ollama, and cloud LLM endpoints.
 
